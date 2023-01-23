@@ -32,13 +32,9 @@ export class App extends Component {
     }
   }
 
-  clearImageMarkup() {
-  this.setState.images = "";
-  }
-
+  
   handleSubmit = query => {
     this.setState({ query, isLoading: true })
-    this.clearGalleryMarkup()
   }
 
   handleLoadMore = () => {
@@ -59,6 +55,7 @@ export class App extends Component {
         <SearchBar onSubmit={this.handleSubmit} />
         <ImageGallery images={images} />
         {this.renderButtonOrLoader()}
+        
       </Container>
     );
   }
