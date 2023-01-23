@@ -14,6 +14,7 @@ export class App extends Component {
     isLoading: false,
     totalImage: 0,
     limit: 500,
+    hasError: false,
   };
 
   componentDidUpdate(_, prevState) {
@@ -25,27 +26,34 @@ export class App extends Component {
           images: page === 1 ? [...respons.hits] : [...images, ...respons.hits],
           totalImage: respons.totalHits,
         }));
-      })
-      .finally(() => {
+      }).finally(() => {
           this.setState({ isLoading: false });
         });
     }
   }
 
+  clearImageMarkup() {
+  this.setState.images = "";
+  }
+
   handleSubmit = query => {
-    this.setState({ query, isLoading: true})
+    this.setState({ query, isLoading: true })
+    this.clearGalleryMarkup()
   }
 
   handleLoadMore = () => {
-    this.setState((prevState) => ({page: prevState.page + 1, isLoading: true}))
+    this.setState((prevState) => ({page: prevState.page + 1, isLoading: true, error:null}))
   }
 
   renderButtonOrLoader = () => {
-    return this.state.isLoading ? (<Loader/> ) : (this.state.images.length!== 0 && this.state.images !== this.limit && this.state.images.length < this.state.totalImage && (<Button onClick={this.handleLoadMore}/>))
+    return this.state.isLoading ? (<Loader />) :
+      (this.state.images.length !== 0 && this.state.images !== this.limit && this.state.images.length < this.state.totalImage
+        && (<Button onClick={this.handleLoadMore} />))         
   }
   
   render() {
-    const { images} = this.state;
+    const { images } = this.state;
+    
     return (
       <Container>
         <SearchBar onSubmit={this.handleSubmit} />

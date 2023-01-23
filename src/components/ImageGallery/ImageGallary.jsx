@@ -1,6 +1,7 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { ImageGalleryList } from './ImageGallary.styled';
-// Список карток зображень. Створює DOM-елемент наступної структури.
+import PropTypes from 'prop-types';
+
 export const ImageGallery = ({images }) => {
     return <ImageGalleryList>
         {images.map(img => {
@@ -9,4 +10,7 @@ export const ImageGallery = ({images }) => {
   </ImageGalleryList>;
 };
 
-// 
+
+ImageGallery.poropTypes = {
+    images: PropTypes.array.isRequired
+}.isRequired

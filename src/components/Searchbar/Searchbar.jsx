@@ -1,28 +1,28 @@
-// Компонент приймає один проп onSubmit – функцію для передачі значення інпута під час сабміту форми. Створює DOM-елемент наступної структури.
-
+import PropTypes from 'prop-types';
 import {
   SearchbarContainer,
   SearchForm,
   SearchFormButton,
-  SearchFormButtonLabel,
-  SearchFormInput,
+  SearchFormInput, SearchFormButtonLabel
 } from './Searchbar.styled';
 
+import { FcSearch } from 'react-icons/fc';
 
 export const SearchBar =({onSubmit})=> {
   
   const handleSubmit = evt => {
     evt.preventDefault()
     onSubmit(evt.currentTarget.elements.query.value)
+
   };
-   
+
     return (
       <SearchbarContainer>
         <SearchForm onSubmit={handleSubmit}>
           <SearchFormButton type="submit">
-            <SearchFormButtonLabel>Search!</SearchFormButtonLabel>
+          <FcSearch />
+          <SearchFormButtonLabel>Search</SearchFormButtonLabel>
           </SearchFormButton>
-
           <SearchFormInput
             name="query"
             type="text"
@@ -33,5 +33,8 @@ export const SearchBar =({onSubmit})=> {
         </SearchForm>
       </SearchbarContainer>
     );
-  
 }
+
+SearchBar.protoType = {
+  onSubmit: PropTypes.func.isRequired
+}.isRequired;

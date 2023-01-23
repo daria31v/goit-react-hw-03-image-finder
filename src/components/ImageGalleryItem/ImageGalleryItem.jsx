@@ -1,9 +1,14 @@
 import { Modal } from 'components/Modal/Modal';
 import { Component } from 'react';
 import { ImageGalleryItems, ImageGalleryItemImage } from './ImageGalleryItem.styled';
-// Компонент елемента списку із зображенням. Створює DOM-елемент наступної структури.
+import PropTypes from 'prop-types';
 
 export class ImageGalleryItem extends Component{
+
+  static propTypes = {
+    webformatURL: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+  }.isRequired;
 
   state = {
     showModal: false,

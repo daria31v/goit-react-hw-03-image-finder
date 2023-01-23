@@ -1,15 +1,18 @@
-import { Triangle } from 'react-loader-spinner';
+import { LineWave } from 'react-loader-spinner';
 
 export const Loader = () => {
   return (
-    <Triangle
-      height="80"
-      width="80"
-      color="#3f51b5"
-      ariaLabel="triangle-loading"
-      wrapperStyle={{}}
-      //   wrapperClassName=""
-      visible={true}
+    <LineWave
+  height="100"
+  width="200"
+  color="#3f51b5"
+  ariaLabel="line-wave"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+  firstLineColor=""
+  middleLineColor=""
+  lastLineColor=""
     />
   );
 };
