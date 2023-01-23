@@ -1,2 +1,15 @@
+import { Triangle } from 'react-loader-spinner';
 
-// Компонент спінера відображається, доки відбувається завантаження зображень. Використовуйте будь-який готовий компонент, наприклад react-loader-spinner або будь-який інший.
+export const Loader = () => {
+  return (
+    <Triangle
+      height="80"
+      width="80"
+      color="#3f51b5"
+      ariaLabel="triangle-loading"
+      wrapperStyle={{}}
+      //   wrapperClassName=""
+      visible={true}
+    />
+  );
+};

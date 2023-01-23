@@ -1,32 +1,56 @@
 import { Component } from 'react';
 import { Container } from './App.styled';
-import { Modal } from './Modal/Modal';
+import { SearchBar } from './Searchbar/Searchbar';
+import { fetchImages } from 'Service/fetchApi';
+import { ImageGallery } from './ImageGallery/ImageGallary';
+import { Button } from './Button/Button';
+import {Loader} from './Loader/Loader'
 
 export class App extends Component {
   state = {
-    showModal: false,
+    query: '',
+    images: [],
+    page: 1,
+    isLoading: false,
+    totalImage: 0,
+    limit: 500,
   };
 
-  toggleModal = () => {
-    this.setState(({showModal}) => ({
-      showModal: !showModal,
-    }));
-  };
+  componentDidUpdate(_, prevState) {
+    const { query, page } = this.state;
+    
+    if (prevState.query !== query || prevState.page !== page) {
+      fetchImages(query, page).then(respons => {
+        this.setState(({ images }) => ({
+          images: page === 1 ? [...respons.hits] : [...images, ...respons.hits],
+          totalImage: respons.totalHits,
+        }));
+      })
+      .finally(() => {
+          this.setState({ isLoading: false });
+        });
+    }
+  }
 
+  handleSubmit = query => {
+    this.setState({ query, isLoading: true})
+  }
+
+  handleLoadMore = () => {
+    this.setState((prevState) => ({page: prevState.page + 1, isLoading: true}))
+  }
+
+  renderButtonOrLoader = () => {
+    return this.state.isLoading ? (<Loader/> ) : (this.state.images.length!== 0 && this.state.images !== this.limit && this.state.images.length < this.state.totalImage && (<Button onClick={this.handleLoadMore}/>))
+  }
+  
   render() {
-    const { showModal } = this.state;
+    const { images} = this.state;
     return (
       <Container>
-        <button type='button' onClick={this.toggleModal}>Open</button>
-       
-        {showModal && (<Modal onClose={this.toggleModal}>
-          <h1>this is content like children</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Placeat explicabo, quam iusto ex sint accusamus aliquid libero
-            quia repellat consectetur inventore eaque! Praesentium adipisci
-            doloribus saepe, omnis ducimus accusamus enim!</p>
-          <button type='button' onClick={this.toggleModal}>Close</button>
-        </Modal>)}
+        <SearchBar onSubmit={this.handleSubmit} />
+        <ImageGallery images={images} />
+        {this.renderButtonOrLoader()}
       </Container>
     );
   }

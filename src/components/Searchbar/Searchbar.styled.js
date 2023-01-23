@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const Searchbar = styled.div`
+export const SearchbarContainer = styled.div`
   top: 0;
   left: 0;
   position: sticky;
@@ -21,7 +21,7 @@ export const Searchbar = styled.div`
 
 // FORM
 
-export const SearchForm = styled.div`
+export const SearchForm = styled.form`
   display: flex;
   align-items: center;
   width: 100%;
@@ -36,7 +36,7 @@ export const SearchFormButton = styled.button`
   width: 48px;
   height: 48px;
   border: 0;
-  background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
+  /* background-color: red; */
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
@@ -49,7 +49,7 @@ export const SearchFormButton = styled.button`
   }
 
 `
-export const SearchFormButtonLabel = styled.label`
+export const SearchFormButtonLabel = styled.span`
   position: absolute;
   width: 1px;
   height: 1px;
